@@ -33,7 +33,7 @@ int main(int argc, char** argv)
         cout << "distCoeffs: " << distCoeffs << endl;
 
         VideoCapture cap;
-        cap.open("http://localhost:8000/?dummy=param.mjpg");
+        cap.open("http://localhost:8000/?dummy=param.mjpeg");
 
         //int cameraId = (int)strtol(argv[1], NULL, 10);
         //cout << "cameraId: " << cameraId << endl;
@@ -63,13 +63,6 @@ int main(int argc, char** argv)
         double dHeight = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
         Size frameSize(static_cast<int>(dWidth), static_cast<int>(dHeight));
 
-        VideoWriter videoWriter ("bottom.avi", CV_FOURCC('P','I','M','1'), cap.get(CV_CAP_PROP_FPS), frameSize,true);
-        if ( !videoWriter.isOpened() )
-        {
-            cout << "ERROR: Failed to write the video" << endl;
-            return -1;
-        }
-
         Mat image;
         bool quit = false;
         while (!quit)
@@ -95,7 +88,6 @@ int main(int argc, char** argv)
             }
 
             imshow("VideoStream", image);
-            videoWriter.write(image);
 
             if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
             {
@@ -108,6 +100,6 @@ int main(int argc, char** argv)
     }
     else
     {
-        cout << "please specify a camera id, a calibration file and the marker size: e.g. \"0 calib.yml 8.3\"";
+        cout << "please specify a calibration file and the marker size: e.g. \"calib.yml 8.3\"";
     }
 }
