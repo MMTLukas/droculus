@@ -1,8 +1,8 @@
-# Droculus
+# Droculus - kurze Projektbeschreibung
 
 Beim studentischen Projekt Droculus geht es darum, eine Drohne autonom einem Nutzer via Marker-Tracking folgen zu lassen. Der Nutzer kann dabei die Welt aus der Perspective der Drohne über deren Front-Kamera wahrnehmen.
 
-#Repository
+# Repository - Inhalt
 
 In diesem Repository befindet sich sämtlicher Source-Code, der für das Droculus-Projekt benötigt wird. 
 
