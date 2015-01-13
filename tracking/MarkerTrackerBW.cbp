@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="MarkerTrackerBW" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\..\usr\local\;CMake Files\..\..\..\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\..\..\..\usr\local\share\OpenCV\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="MarkerTrackerBWLib">
+         <Option output="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/libMarkerTrackerBWLib.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker" />
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/markerBW.hpp" />
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/markerDetectorBW.hpp" />
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/pose.hpp" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 MarkerTrackerBWLib" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="MarkerTrackerBWLib/fast">
+         <Option output="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/libMarkerTrackerBWLib.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker" />
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/markerBW.hpp" />
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/markerDetectorBW.hpp" />
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/pose.hpp" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 MarkerTrackerBWLib/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="markerTrackerTest">
+         <Option output="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/markerTrackerTest" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker" />
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/markerBW.hpp" />
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/markerDetectorBW.hpp" />
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/pose.hpp" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 markerTrackerTest" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="markerTrackerTest/fast">
+         <Option output="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/markerTrackerTest" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker" />
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/markerBW.hpp" />
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/markerDetectorBW.hpp" />
+            <Add directory="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/pose.hpp" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 markerTrackerTest/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/main.cpp">
+      </Unit>
+      <Unit filename="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/markerBW.cpp">
+      </Unit>
+      <Unit filename="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/markerDetectorBW.cpp">
+      </Unit>
+      <Unit filename="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/pose.cpp">
+      </Unit>
+      <Unit filename="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/markerBW.hpp">
+      </Unit>
+      <Unit filename="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/markerDetectorBW.hpp">
+      </Unit>
+      <Unit filename="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/include/pose.hpp">
+      </Unit>
+      <Unit filename="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/../../../../../../../usr/local/share/OpenCV/OpenCVConfig-version.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\..\..\usr\local\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/../../../../../../../usr/local/share/OpenCV/OpenCVConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\..\..\usr\local\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/../../../../../../../usr/local/share/OpenCV/OpenCVModules.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\..\..\usr\local\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/../../../../../../../usr/local/share/OpenCV/OpenCVModules-release.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\..\..\usr\local\share\OpenCV\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>

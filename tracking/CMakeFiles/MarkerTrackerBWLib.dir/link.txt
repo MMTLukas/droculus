@@ -1,0 +1,2 @@
+/usr/bin/ar cr libMarkerTrackerBWLib.a  CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.o CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.o CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.o
+/usr/bin/ranlib libMarkerTrackerBWLib.a
