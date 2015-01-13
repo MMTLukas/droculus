@@ -1,4 +1,4 @@
-# Install script for directory: /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker
+# Install script for directory: /var/www/html/projects/droculus/tracking
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/var/www/html/projects/droculus/tracking/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/var/www/html/projects/droculus/tracking/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

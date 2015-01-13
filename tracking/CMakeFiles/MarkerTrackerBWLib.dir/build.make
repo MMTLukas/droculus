@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker
+CMAKE_SOURCE_DIR = /var/www/html/projects/droculus/tracking
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker
+CMAKE_BINARY_DIR = /var/www/html/projects/droculus/tracking
 
 # Include any dependencies generated for this target.
 include CMakeFiles/MarkerTrackerBWLib.dir/depend.make
@@ -51,17 +51,17 @@ include CMakeFiles/MarkerTrackerBWLib.dir/flags.make
 
 CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.o: CMakeFiles/MarkerTrackerBWLib.dir/flags.make
 CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.o: src/pose.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /var/www/html/projects/droculus/tracking/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.o -c /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/pose.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.o -c /var/www/html/projects/droculus/tracking/src/pose.cpp
 
 CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/pose.cpp > CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /var/www/html/projects/droculus/tracking/src/pose.cpp > CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.i
 
 CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/pose.cpp -o CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /var/www/html/projects/droculus/tracking/src/pose.cpp -o CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.s
 
 CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.o.requires:
 .PHONY : CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.o.requires
@@ -74,17 +74,17 @@ CMakeFiles/MarkerTrackerBWLib.dir/src/pose.cpp.o.provides.build: CMakeFiles/Mark
 
 CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.o: CMakeFiles/MarkerTrackerBWLib.dir/flags.make
 CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.o: src/markerBW.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /var/www/html/projects/droculus/tracking/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.o -c /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/markerBW.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.o -c /var/www/html/projects/droculus/tracking/src/markerBW.cpp
 
 CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/markerBW.cpp > CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /var/www/html/projects/droculus/tracking/src/markerBW.cpp > CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.i
 
 CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/markerBW.cpp -o CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /var/www/html/projects/droculus/tracking/src/markerBW.cpp -o CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.s
 
 CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.o.requires:
 .PHONY : CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.o.requires
@@ -97,17 +97,17 @@ CMakeFiles/MarkerTrackerBWLib.dir/src/markerBW.cpp.o.provides.build: CMakeFiles/
 
 CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.o: CMakeFiles/MarkerTrackerBWLib.dir/flags.make
 CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.o: src/markerDetectorBW.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /var/www/html/projects/droculus/tracking/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.o -c /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/markerDetectorBW.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.o -c /var/www/html/projects/droculus/tracking/src/markerDetectorBW.cpp
 
 CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/markerDetectorBW.cpp > CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /var/www/html/projects/droculus/tracking/src/markerDetectorBW.cpp > CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.i
 
 CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/markerDetectorBW.cpp -o CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /var/www/html/projects/droculus/tracking/src/markerDetectorBW.cpp -o CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.s
 
 CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.o.requires:
 .PHONY : CMakeFiles/MarkerTrackerBWLib.dir/src/markerDetectorBW.cpp.o.requires
@@ -150,6 +150,6 @@ CMakeFiles/MarkerTrackerBWLib.dir/clean:
 .PHONY : CMakeFiles/MarkerTrackerBWLib.dir/clean
 
 CMakeFiles/MarkerTrackerBWLib.dir/depend:
-	cd /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/CMakeFiles/MarkerTrackerBWLib.dir/DependInfo.cmake --color=$(COLOR)
+	cd /var/www/html/projects/droculus/tracking && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /var/www/html/projects/droculus/tracking /var/www/html/projects/droculus/tracking /var/www/html/projects/droculus/tracking /var/www/html/projects/droculus/tracking /var/www/html/projects/droculus/tracking/CMakeFiles/MarkerTrackerBWLib.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/MarkerTrackerBWLib.dir/depend
 

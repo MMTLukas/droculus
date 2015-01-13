@@ -7,10 +7,6 @@ SET(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 SET(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "CMakeFiles/2.8.12.2/CMakeCCompiler.cmake"
-  "CMakeFiles/2.8.12.2/CMakeCXXCompiler.cmake"
-  "CMakeFiles/2.8.12.2/CMakeSystem.cmake"
-  "CMakeLists.txt"
   "/usr/local/share/OpenCV/OpenCVConfig-version.cmake"
   "/usr/local/share/OpenCV/OpenCVConfig.cmake"
   "/usr/local/share/OpenCV/OpenCVModules-release.cmake"
@@ -29,9 +25,7 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-2.8/Modules/CMakeDetermineCompilerABI.cmake"
   "/usr/share/cmake-2.8/Modules/CMakeDetermineCompilerId.cmake"
   "/usr/share/cmake-2.8/Modules/CMakeDetermineSystem.cmake"
-  "/usr/share/cmake-2.8/Modules/CMakeExtraGeneratorDetermineCompilerMacrosAndIncludeDirs.cmake"
   "/usr/share/cmake-2.8/Modules/CMakeFindBinUtils.cmake"
-  "/usr/share/cmake-2.8/Modules/CMakeFindCodeBlocks.cmake"
   "/usr/share/cmake-2.8/Modules/CMakeGenericSystem.cmake"
   "/usr/share/cmake-2.8/Modules/CMakeParseImplicitLinkInfo.cmake"
   "/usr/share/cmake-2.8/Modules/CMakeSystem.cmake.in"
@@ -50,6 +44,10 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-2.8/Modules/Platform/Linux-GNU.cmake"
   "/usr/share/cmake-2.8/Modules/Platform/Linux.cmake"
   "/usr/share/cmake-2.8/Modules/Platform/UnixPaths.cmake"
+  "CMakeFiles/2.8.12.2/CMakeCCompiler.cmake"
+  "CMakeFiles/2.8.12.2/CMakeCXXCompiler.cmake"
+  "CMakeFiles/2.8.12.2/CMakeSystem.cmake"
+  "CMakeLists.txt"
   )
 
 # The corresponding makefile is:
@@ -71,5 +69,5 @@ SET(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 SET(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/MarkerTrackerBWLib.dir/DependInfo.cmake"
-  "CMakeFiles/markerTrackerTest.dir/DependInfo.cmake"
+  "CMakeFiles/tracking.dir/DependInfo.cmake"
   )

@@ -6,18 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/main.cpp
-stdio.h
--
-iostream
--
-opencv2/opencv.hpp
--
-include/markerDetectorBW.hpp
-/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/include/markerDetectorBW.hpp
-include/markerBW.hpp
-/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/include/markerBW.hpp
-
 /usr/local/include/opencv2/calib3d/calib3d.hpp
 opencv2/core/core.hpp
 /usr/local/include/opencv2/calib3d/opencv2/core/core.hpp
@@ -267,6 +255,18 @@ opencv2/video/tracking.hpp
 /usr/local/include/opencv2/video/opencv2/video/tracking.hpp
 opencv2/video/background_segm.hpp
 /usr/local/include/opencv2/video/opencv2/video/background_segm.hpp
+
+/var/www/html/projects/droculus/tracking/src/main.cpp
+stdio.h
+-
+iostream
+-
+opencv2/opencv.hpp
+-
+include/markerDetectorBW.hpp
+/var/www/html/projects/droculus/tracking/src/include/markerDetectorBW.hpp
+include/markerBW.hpp
+/var/www/html/projects/droculus/tracking/src/include/markerBW.hpp
 
 include/markerBW.hpp
 vector

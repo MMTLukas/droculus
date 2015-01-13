@@ -4,13 +4,13 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/src/main.cpp" "/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/CMakeFiles/markerTrackerTest.dir/src/main.cpp.o"
+  "/var/www/html/projects/droculus/tracking/src/main.cpp" "/var/www/html/projects/droculus/tracking/CMakeFiles/tracking.dir/src/main.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Targets to which this target links.
 SET(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/CMakeFiles/MarkerTrackerBWLib.dir/DependInfo.cmake"
+  "/var/www/html/projects/droculus/tracking/CMakeFiles/MarkerTrackerBWLib.dir/DependInfo.cmake"
   )
 
 # The include file search paths:

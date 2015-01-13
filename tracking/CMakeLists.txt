@@ -28,6 +28,6 @@ target_include_directories(MarkerTrackerBWLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 
 set(srcs	src/main.cpp)
 set(linkLibs ${linkLibsLib} MarkerTrackerBWLib)
-add_executable(markerTrackerTest ${srcs})
-target_link_libraries(markerTrackerTest LINK_PUBLIC	${linkLibs})
+add_executable(tracking ${srcs})
+target_link_libraries(tracking LINK_PUBLIC	${linkLibs})
 

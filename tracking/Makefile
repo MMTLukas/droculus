@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker
+CMAKE_SOURCE_DIR = /var/www/html/projects/droculus/tracking
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker
+CMAKE_BINARY_DIR = /var/www/html/projects/droculus/tracking
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,9 +69,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/CMakeFiles /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /var/www/html/projects/droculus/tracking/CMakeFiles /var/www/html/projects/droculus/tracking/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /var/www/html/projects/droculus/tracking/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -112,24 +112,24 @@ MarkerTrackerBWLib/fast:
 .PHONY : MarkerTrackerBWLib/fast
 
 #=============================================================================
-# Target rules for targets named markerTrackerTest
+# Target rules for targets named tracking
 
 # Build rule for target.
-markerTrackerTest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 markerTrackerTest
-.PHONY : markerTrackerTest
+tracking: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tracking
+.PHONY : tracking
 
 # fast build rule for target.
-markerTrackerTest/fast:
-	$(MAKE) -f CMakeFiles/markerTrackerTest.dir/build.make CMakeFiles/markerTrackerTest.dir/build
-.PHONY : markerTrackerTest/fast
+tracking/fast:
+	$(MAKE) -f CMakeFiles/tracking.dir/build.make CMakeFiles/tracking.dir/build
+.PHONY : tracking/fast
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/markerTrackerTest.dir/build.make CMakeFiles/markerTrackerTest.dir/src/main.cpp.o
+	$(MAKE) -f CMakeFiles/tracking.dir/build.make CMakeFiles/tracking.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -137,7 +137,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/markerTrackerTest.dir/build.make CMakeFiles/markerTrackerTest.dir/src/main.cpp.i
+	$(MAKE) -f CMakeFiles/tracking.dir/build.make CMakeFiles/tracking.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -145,7 +145,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/markerTrackerTest.dir/build.make CMakeFiles/markerTrackerTest.dir/src/main.cpp.s
+	$(MAKE) -f CMakeFiles/tracking.dir/build.make CMakeFiles/tracking.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/markerBW.o: src/markerBW.cpp.o
@@ -228,8 +228,8 @@ help:
 	@echo "... depend"
 	@echo "... MarkerTrackerBWLib"
 	@echo "... edit_cache"
-	@echo "... markerTrackerTest"
 	@echo "... rebuild_cache"
+	@echo "... tracking"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

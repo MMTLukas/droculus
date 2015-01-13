@@ -1,2 +1,2 @@
-/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/CMakeFiles/MarkerTrackerBWLib.dir
-/home/enthusiasm/Dokumente/Studium/MRI/Uebung/2_markertracker/CMakeFiles/markerTrackerTest.dir
+/var/www/html/projects/droculus/tracking/CMakeFiles/MarkerTrackerBWLib.dir
+/var/www/html/projects/droculus/tracking/CMakeFiles/tracking.dir
