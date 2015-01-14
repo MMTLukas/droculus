@@ -1,5 +1,13 @@
 #include <stdio.h>
 #include <iostream>
+
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+
 #include <opencv2/opencv.hpp>
 #include "include/markerDetectorBW.hpp"
 #include "include/markerBW.hpp"
@@ -27,12 +35,69 @@ int main(int argc, char** argv)
         fs2["distortion_coefficients"] >> distCoeffs;
 
         //Start stream from parrot drone
-        VideoCapture cap("tcp://192.168.1.1:5555");
+        /*VideoCapture cap("tcp://192.168.1.1:5555");
         if (!cap.isOpened())
         {
             cerr << "Could not open stream from parrot drone" << endl;
             return -1;
+        }*/
+
+        //Descriptors per socket
+        int serverSocketDescriptor, clientSocketDescriptor, port, messageLength;
+        struct sockaddr_in serverInfo, clientInfo;
+        char buffer[256];
+
+        //Create TCP stream socket for listening
+        serverSocketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
+        if(serverSocketDescriptor < 0)
+        {
+            cerr << "ERROR on opening socket" <<endl;
+            return -1;
         }
+
+        //Initialize to zero and set the address-family, (current) ip address and port
+        bzero((char*) &serverInfo, sizeof(serverInfo));
+        port = 3333;
+        serverInfo.sin_family = AF_INET;
+        serverInfo.sin_addr.s_addr = INADDR_ANY;
+        serverInfo.sin_port = htons(port);
+
+        //Binds socket to address
+        int result = bind(serverSocketDescriptor, (struct sockaddr*) &serverInfo, sizeof(serverInfo));
+        if(result < 0)
+        {
+            cerr << "ERROR on binding" <<endl;
+            return -1;
+        }
+
+        //Listen for incoming connections
+        //Accept causes the process to block until there is a client connecting
+        listen(serverSocketDescriptor, SOMAXCONN);
+        socklen_t clientInfoLength = sizeof(clientInfo);
+        clientSocketDescriptor = accept(serverSocketDescriptor, (struct sockaddr*) &clientInfo, &clientInfoLength);
+        if(clientSocketDescriptor < 0)
+        {
+            cerr << "ERROR on accept" <<endl;
+            return -1;
+        }
+
+        bzero(buffer,256);
+        messageLength = read(clientSocketDescriptor,buffer,255);
+        if (messageLength < 0)
+        {
+            cerr << "ERROR on read" <<endl;
+            return -1;
+        }
+
+        messageLength = write(clientSocketDescriptor,buffer,255);
+        if (messageLength < 0)
+        {
+            cerr << "ERROR on write" <<endl;
+            return -1;
+        }
+
+        /*
+
 
         //float markerSize = strtof(argv[3], NULL);
         double markerSize = atof(argv[2]);
@@ -51,13 +116,15 @@ int main(int argc, char** argv)
         bool quit = false;
         while (!quit)
         {
-            bool bSuccess = cap.read(image); // read a new frame from video
-            if (!bSuccess) //if not success, break loop
+            //Read frame
+            bool bSuccess = cap.read(image);
+            if (!bSuccess)
             {
                 cout << "Cannot read a frame from video stream" << endl;
                 break;
             }
 
+            //Process image and find marker
             md.processFrame(image);
             vector<Pose> poses = md.getPoses();
             if (poses.size() == 1 && poses.at(0).isEmpty() == false)
@@ -70,15 +137,25 @@ int main(int argc, char** argv)
                 cv::putText(image, rotSS.str(), cv::Point(10, 60), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
             }
 
+            //Send trans and rot via sockets
+
+
+            //Show Image
             imshow("VideoStream", image);
 
-            if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+            //Cancel at esc for 30ms
+            if (waitKey(30) == 27)
             {
                 cout << "esc key is pressed by user" << endl;
                 quit = true;
             }
         }
-
-        cap.release();
+*/
+        //Release socket and video stream
+        close(serverSocketDescriptor);
+        close(clientSocketDescriptor);
+        //cap.release();
     }
+
+    return 0;
 }

@@ -1,22 +1,25 @@
-var http = require('http');
+var net = require('net');
 var drone = require('./drone');
 
-var stream = null;
+var HOST = "localhost";
+var PORT = 3333;
 
-var server = http.createServer(function (req, res) {
-  if (!stream) {
-    stream = drone.getPngStream();
-    stream.on('error', function (err) {
-      console.error('png stream ERROR: ' + err);
-    });
-  }
+var client = new net.Socket();
+client.connect(PORT, HOST, function(){
+  console.log("Connected to " + HOST + ":" + PORT);
+  client.write("Das hier schreib ich zum Server");
+});
 
-  res.writeHead(200, {'Content-Type': 'multipart/x-mixed-replace; boundary=--daboundary'});
+client.on("data", function(data){
+  console.log("DATA: " + data);
 
-  stream.on('data', function(buffer) {
-    console.log(buffer.length);
-    res.write('--daboundary\nContent-Type: image/png\nContent-length: ' + buffer.length + '\n\n');
-    res.write(buffer);
-  });
+  //TO something with the data
+});
 
-}).listen(8000);
+client.on("close", function(){
+  console.log("Connection closed");
+});
+
+client.on("error", function(error){
+  console.log("ERROR: " + error);
+});
