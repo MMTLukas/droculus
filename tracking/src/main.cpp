@@ -45,7 +45,6 @@ int main(int argc, char** argv)
         //Descriptors per socket
         int serverSocketDescriptor, clientSocketDescriptor, port, messageLength;
         struct sockaddr_in serverInfo, clientInfo;
-        char buffer[256];
 
         //Create TCP stream socket for listening
         serverSocketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
@@ -81,24 +80,20 @@ int main(int argc, char** argv)
             return -1;
         }
 
-        bzero(buffer,256);
-        messageLength = read(clientSocketDescriptor,buffer,255);
-        if (messageLength < 0)
+        //Demo loop sending [POSITION]-[ROTATION]
+        string message;
+        while(42)
         {
-            cerr << "ERROR on read" <<endl;
-            return -1;
-        }
-
-        messageLength = write(clientSocketDescriptor,buffer,255);
-        if (messageLength < 0)
-        {
-            cerr << "ERROR on write" <<endl;
-            return -1;
+            message = "X:1;Y:2;Z:3-X:1;Y:2;Z:3";
+            messageLength = write(clientSocketDescriptor, message.c_str(), strlen(message.c_str()));
+            if (messageLength < 0)
+            {
+                cout << "ERROR on write" <<endl;
+            }
+            sleep(1); //in sec
         }
 
         /*
-
-
         //float markerSize = strtof(argv[3], NULL);
         double markerSize = atof(argv[2]);
         cout << "marker size: " << markerSize << endl;;
@@ -116,41 +111,41 @@ int main(int argc, char** argv)
         bool quit = false;
         while (!quit)
         {
-            //Read frame
-            bool bSuccess = cap.read(image);
-            if (!bSuccess)
-            {
-                cout << "Cannot read a frame from video stream" << endl;
-                break;
-            }
-
-            //Process image and find marker
-            md.processFrame(image);
-            vector<Pose> poses = md.getPoses();
-            if (poses.size() == 1 && poses.at(0).isEmpty() == false)
-            {
-                stringstream transSS, rotSS;
-                transSS << "trans (x,y,z): " << poses.at(0).translation().at<float>(0) << " " << poses.at(0).translation().at<float>(1) << " " << poses.at(0).translation().at<float>(2);
-                cv::putText(image, transSS.str(), cv::Point(10, 30), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
-
-                rotSS << "rot (rodrigues): " << poses.at(0).rotation().at<float>(0) << " " << poses.at(0).rotation().at<float>(1) << " " << poses.at(0).rotation().at<float>(2);
-                cv::putText(image, rotSS.str(), cv::Point(10, 60), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
-            }
-
-            //Send trans and rot via sockets
-
-
-            //Show Image
-            imshow("VideoStream", image);
-
-            //Cancel at esc for 30ms
-            if (waitKey(30) == 27)
-            {
-                cout << "esc key is pressed by user" << endl;
-                quit = true;
-            }
+        //Read frame
+        bool bSuccess = cap.read(image);
+        if (!bSuccess)
+        {
+         cout << "Cannot read a frame from video stream" << endl;
+         break;
         }
-*/
+
+        //Process image and find marker
+        md.processFrame(image);
+        vector<Pose> poses = md.getPoses();
+        if (poses.size() == 1 && poses.at(0).isEmpty() == false)
+        {
+         stringstream transSS, rotSS;
+         transSS << "trans (x,y,z): " << poses.at(0).translation().at<float>(0) << " " << poses.at(0).translation().at<float>(1) << " " << poses.at(0).translation().at<float>(2);
+         cv::putText(image, transSS.str(), cv::Point(10, 30), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
+
+         rotSS << "rot (rodrigues): " << poses.at(0).rotation().at<float>(0) << " " << poses.at(0).rotation().at<float>(1) << " " << poses.at(0).rotation().at<float>(2);
+         cv::putText(image, rotSS.str(), cv::Point(10, 60), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
+        }
+
+        //Send trans and rot via sockets
+
+
+        //Show Image
+        imshow("VideoStream", image);
+
+        //Cancel at esc for 30ms
+        if (waitKey(30) == 27)
+        {
+         cout << "esc key is pressed by user" << endl;
+         quit = true;
+        }
+        }
+        */
         //Release socket and video stream
         close(serverSocketDescriptor);
         close(clientSocketDescriptor);
