@@ -9,44 +9,28 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-
-    cout << "command line arguments: " << endl;
-    // for now hardcode the parameters
-    for (int i = 0; i < argc; i++)
+    if (argc != 3)
     {
-        cout << "i " << i << ": " <<  argv[i] << endl;
+        cout << "please specify a calibration file and the marker size: e.g. \"calib.yml 8.3\"";
+        cout << "command line arguments: " << endl;
+        for (int i = 0; i < argc; i++)
+        {
+            cout << "i " << i << ": " <<  argv[i] << endl;
+        }
     }
-
-    cout << argc <<endl;
-
-    if (argc == 3)
+    else
     {
+        //Read camera calibration file and define needed matrizen
         FileStorage fs2(argv[1], FileStorage::READ);
-        //FileStorage fs2("camera.yml", FileStorage::READ);
-        // get calibration data
-
         Mat cameraMatrix, distCoeffs;
         fs2["camera_matrix"] >> cameraMatrix;
         fs2["distortion_coefficients"] >> distCoeffs;
 
-        cout << "intrinsics: " << cameraMatrix << endl;
-        cout << "distCoeffs: " << distCoeffs << endl;
-
-        VideoCapture cap;
-        cap.open("http://localhost:8000/?dummy=param.mjpeg");
-
-        //int cameraId = (int)strtol(argv[1], NULL, 10);
-        //cout << "cameraId: " << cameraId << endl;
-
-        //cap.open("bottom_camera.mp4");
-        //cap.open(1);
-        //cap.set(CV_CAP_PROP_FRAME_WIDTH, 640);
-        //cap.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
-        //cap.set(CV_CAP_PROP_FPS, 30);
-
+        //Start stream from parrot drone
+        VideoCapture cap("tcp://192.168.1.1:5555");
         if (!cap.isOpened())
         {
-            cerr << "Could not open capture stream" << atoi(argv[1]) << endl;
+            cerr << "Could not open stream from parrot drone" << endl;
             return -1;
         }
 
@@ -73,7 +57,6 @@ int main(int argc, char** argv)
                 cout << "Cannot read a frame from video stream" << endl;
                 break;
             }
-            //resize(image, image, Size(640, 480), 0, 0, INTER_LINEAR);
 
             md.processFrame(image);
             vector<Pose> poses = md.getPoses();
@@ -97,9 +80,5 @@ int main(int argc, char** argv)
         }
 
         cap.release();
-    }
-    else
-    {
-        cout << "please specify a calibration file and the marker size: e.g. \"calib.yml 8.3\"";
     }
 }
