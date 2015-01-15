@@ -1,2 +1,0 @@
-/var/www/html/projects/droculus/tracking/CMakeFiles/MarkerTrackerBWLib.dir
-/var/www/html/projects/droculus/tracking/CMakeFiles/tracking.dir
