@@ -4,19 +4,27 @@ var drone = require('./drone');
 var HOST = "localhost";
 var PORT = 3333;
 
-drone.flyAutonomous();
-/*
 var client = new net.Socket();
-/*client.connect(PORT, HOST, function(){
- console.log("Connected to " + HOST + ":" + PORT);
- });
+client.connect(PORT, HOST, function () {
+  console.log("Connected to " + HOST + ":" + PORT);
+});
 
 client.on("data", function (data) {
   console.log(getCurrentTime() + ": " + data);
+  data = JSON.stringify(data);
 
-  var params = parseData(data);
-  if(params != null){
-    drone.flyAutonomous(params.coordinates, params.rotation);
+  console.log(typeof data, data.length);
+
+  if(data === "START"){
+    drone.takeoff();
+  }
+  else if(data === "STOP"){
+    drone.land();
+  } else{
+    var params = parseData(data);
+    if (params != null) {
+      drone.flyAutonomous(params.coordinates, params.rotation);
+    }
   }
 });
 
@@ -46,7 +54,7 @@ function parseData(data) {
     }
     return params;
   }
-  else{
+  else {
     return null;
   }
 }
@@ -54,4 +62,4 @@ function parseData(data) {
 function getCurrentTime() {
   var date = new Date();
   return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":" + date.getMilliseconds();
-}*/
+}

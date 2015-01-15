@@ -3,26 +3,29 @@ var autonomyDrone = require('ardrone-autonomy');
 
 var mission = autonomyDrone.createMission();
 var options = 71368705; //Masked 0,16,22,26 from arDroneConstants
-
 mission.client().config('general:navdata_demo', true);
 mission.client().config('general:navdata_options', options);
 mission.client().config('video:video_channel', 0);
 mission.client().config('detect:detect_type', 12);
 
-mission.log("mission-" + new Date().getTime() + ".txt");
+
 
 module.exports = {
   flyAutonomous: function (coordinates, rotation) {
-    mission.takeoff().land();
+    console.log(coordinates);
+    return;
+
+    mission.go({x:coordinates.x, y:coordinates.y, z:coordinates.z, yaw:0})
     mission.run(missionCallback);
   },
-  takeOff: function () {
-    var mission = autonomyDrone.createMission();
-    mission.takeoff().run(missionCallback)
+  takeoff: function () {
+    console.log("Drone take off");
+    mission.takeoff().zero();
+    mission.run(missionCallback);
   },
   land: function () {
-    var mission = autonomyDrone.createMission();
-    mission.land().run(missionCallback)
+    mission.land();
+    mission.run(missionCallback);
   }
 };
 
@@ -32,8 +35,7 @@ function missionCallback(err, result) {
     mission.client().stop();
     mission.client().land();
   } else {
-    console.log("Mission success!");
-    process.exit(0);
+    console.log("Autonomy flying mission success!");
   }
 }
 

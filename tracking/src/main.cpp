@@ -34,13 +34,19 @@ int main(int argc, char** argv)
         fs2["camera_matrix"] >> cameraMatrix;
         fs2["distortion_coefficients"] >> distCoeffs;
 
+        cout << "Trying to open stream at 192.168.1.1:5555 ..." << endl;
+
         //Start stream from parrot drone
-        /*VideoCapture cap("tcp://192.168.1.1:5555");
+        VideoCapture cap("tcp://192.168.1.1:5555");
         if (!cap.isOpened())
         {
-            cerr << "Could not open stream from parrot drone" << endl;
+            cerr << "Could not open stream from drone" << endl;
             return -1;
-        }*/
+        }
+        else
+        {
+            cout << "Opened stream from drone" << endl;
+        }
 
         //Descriptors per socket
         int serverSocketDescriptor, clientSocketDescriptor, port, messageLength;
@@ -50,7 +56,7 @@ int main(int argc, char** argv)
         serverSocketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
         if(serverSocketDescriptor < 0)
         {
-            cerr << "ERROR on opening socket" <<endl;
+            cerr << "ERROR on opening socket" << endl;
             return -1;
         }
 
@@ -65,7 +71,7 @@ int main(int argc, char** argv)
         int result = bind(serverSocketDescriptor, (struct sockaddr*) &serverInfo, sizeof(serverInfo));
         if(result < 0)
         {
-            cerr << "ERROR on binding" <<endl;
+            cerr << "ERROR on binding" << endl;
             return -1;
         }
 
@@ -76,24 +82,18 @@ int main(int argc, char** argv)
         clientSocketDescriptor = accept(serverSocketDescriptor, (struct sockaddr*) &clientInfo, &clientInfoLength);
         if(clientSocketDescriptor < 0)
         {
-            cerr << "ERROR on accept" <<endl;
+            cerr << "ERROR on accept" << endl;
             return -1;
         }
 
-        //Demo loop sending [POSITION]-[ROTATION]
         string message;
-        while(42)
+        message = "START";
+        messageLength = write(clientSocketDescriptor, message.c_str(), strlen(message.c_str()));
+        if (messageLength < 0)
         {
-            message = "X:1;Y:2;Z:3-X:1;Y:2;Z:3";
-            messageLength = write(clientSocketDescriptor, message.c_str(), strlen(message.c_str()));
-            if (messageLength < 0)
-            {
-                cout << "ERROR on write" <<endl;
-            }
-            sleep(1); //in sec
+            cout << "ERROR on write" << endl;
         }
 
-        /*
         //float markerSize = strtof(argv[3], NULL);
         double markerSize = atof(argv[2]);
         cout << "marker size: " << markerSize << endl;;
@@ -111,45 +111,61 @@ int main(int argc, char** argv)
         bool quit = false;
         while (!quit)
         {
-        //Read frame
-        bool bSuccess = cap.read(image);
-        if (!bSuccess)
-        {
-         cout << "Cannot read a frame from video stream" << endl;
-         break;
+            //Read frame
+            bool bSuccess = cap.read(image);
+            if (!bSuccess)
+            {
+                cout << "Cannot read a frame from video stream" << endl;
+                break;
+            }
+
+            //Process image and find marker
+            md.processFrame(image);
+            vector<Pose> poses = md.getPoses();
+            if (poses.size() == 1 && poses.at(0).isEmpty() == false)
+            {
+                stringstream transSS, rotSS, buffer;
+                float tx, ty, tz;
+                float rx, ry, rz;
+
+                tx = poses.at(0).translation().at<float>(0);
+                ty = poses.at(0).translation().at<float>(1);
+                tz = poses.at(0).translation().at<float>(2);
+
+                rx = poses.at(0).rotation().at<float>(0);
+                ry = poses.at(0).rotation().at<float>(1);
+                rz = poses.at(0).rotation().at<float>(2);
+
+                transSS << "trans (x,y,z): " << tx << " " << ty << " " << tz;
+                cv::putText(image, transSS.str(), cv::Point(10, 30), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
+
+                rotSS << "rot (rodrigues): " << rx << " " << ry << " " << rz;
+                cv::putText(image, rotSS.str(), cv::Point(10, 60), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
+
+                //Send trans and rot via sockets
+                buffer << "TX=" << tx << "&TY=" << ty << "&TZ=" << tz << "&RX=" << rx << "&RY=" << ry << "&RZ=" << rz;
+                messageLength = write(clientSocketDescriptor, buffer.str().c_str(), strlen(buffer.str().c_str()));
+                if (messageLength < 0)
+                {
+                    cout << "ERROR on write" <<endl;
+                }
+            }
+
+            //Show Image
+            imshow("VideoStream", image);
+
+            //Cancel at esc for 30ms
+            if (waitKey(30) == 27)
+            {
+                cout << "esc key is pressed by user" << endl;
+                quit = true;
+            }
         }
 
-        //Process image and find marker
-        md.processFrame(image);
-        vector<Pose> poses = md.getPoses();
-        if (poses.size() == 1 && poses.at(0).isEmpty() == false)
-        {
-         stringstream transSS, rotSS;
-         transSS << "trans (x,y,z): " << poses.at(0).translation().at<float>(0) << " " << poses.at(0).translation().at<float>(1) << " " << poses.at(0).translation().at<float>(2);
-         cv::putText(image, transSS.str(), cv::Point(10, 30), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
-
-         rotSS << "rot (rodrigues): " << poses.at(0).rotation().at<float>(0) << " " << poses.at(0).rotation().at<float>(1) << " " << poses.at(0).rotation().at<float>(2);
-         cv::putText(image, rotSS.str(), cv::Point(10, 60), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
-        }
-
-        //Send trans and rot via sockets
-
-
-        //Show Image
-        imshow("VideoStream", image);
-
-        //Cancel at esc for 30ms
-        if (waitKey(30) == 27)
-        {
-         cout << "esc key is pressed by user" << endl;
-         quit = true;
-        }
-        }
-        */
         //Release socket and video stream
-        close(serverSocketDescriptor);
-        close(clientSocketDescriptor);
-        //cap.release();
+        //close(serverSocketDescriptor);
+        //close(clientSocketDescriptor);
+        cap.release();
     }
 
     return 0;
