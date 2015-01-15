@@ -1,60 +1,53 @@
-/**
- * Created by enthusiasm on 13.01.15.
- */
-
 var arDrone = require('ar-drone');
-var drone = arDrone.createClient();
+var autonomyDrone = require('ardrone-autonomy');
 
-// Streaming front-camera
-drone.config('video:video_channel', 0);
+var mission = autonomyDrone.createMission();
+var options = 71368705; //Masked 0,16,22,26 from arDroneConstants
 
+mission.client().config('general:navdata_demo', true);
+mission.client().config('general:navdata_options', options);
+mission.client().config('video:video_channel', 0);
+mission.client().config('detect:detect_type', 12);
 
-// Streaming bottom-camera
-drone.config('video:video_channel', 3);
-
+mission.log("mission-" + new Date().getTime() + ".txt");
 
 module.exports = {
-  flyAutonomous: function(params){
-
+  flyAutonomous: function (coordinates, rotation) {
+    mission.takeoff().land();
+    mission.run(missionCallback);
+  },
+  takeOff: function () {
+    var mission = autonomyDrone.createMission();
+    mission.takeoff().run(missionCallback)
+  },
+  land: function () {
+    var mission = autonomyDrone.createMission();
+    mission.land().run(missionCallback)
   }
 };
 
-// starting the drone
-drone.takeoff();
+function missionCallback(err, result) {
+  if (err) {
+    console.log("Oops, something bad happened: %s", err.message);
+    mission.client().stop();
+    mission.client().land();
+  } else {
+    console.log("Mission success!");
+    process.exit(0);
+  }
+}
 
-
-// flying on a fixed altitude
-drone
- .after(1000, function() {
- 	this.up(1);
- });
-
-
-// landing the drone
-drone
- .after(1000, function() {
- 	this.stop();
- 	this.land();
- });
-
-
-/* Drone Commands
-
-takeoff() 					- has the drone takeoff and hover above the ground
-
-land() 						- has the drone land
-
-up(speed) 					- has the drone gain altitude at a speed between 1 (max speed) and 0 (still).
-
-down(speed) 				- makes the drone reduce altitude
-
-clockwise(speed) 			- drone spins clockwise
-
-counterClockwise(speed) 	- drone spins counter-clockwise
-
-front(speed)/back(speed)	- changes the pitch causing horizontal movement
-
-left(speed)/right(speed) 	- changes the roll causing horizontal movement
-
-stop() 						- keeps the drone hovering in place
-*/
+//Land on ctrl-c
+var exiting = false;
+process.on('SIGINT', function () {
+  if (exiting) {
+    process.exit(0);
+  } else {
+    console.log('Got SIGINT. Landing, press Control-C again to force exit.');
+    exiting = true;
+    mission.control().disable();
+    mission.client().land(function () {
+      process.exit(0);
+    });
+  }
+});
