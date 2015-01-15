@@ -8,10 +8,18 @@ var drone = arDrone.createClient();
 // Streaming front-camera
 drone.config('video:video_channel', 0);
 
+<<<<<<< HEAD
 // Streaming bottom-camera
 drone.config('video:video_channel', 3);
 
 module.exports = drone;
+=======
+module.exports = {
+  flyAutonomous: function(params){
+
+  }
+};
+>>>>>>> 9a6bcc10594b568a86e6f6dc51991def65994209
 
 
 // starting the drone
