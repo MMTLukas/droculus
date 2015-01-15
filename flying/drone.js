@@ -6,7 +6,11 @@ var arDrone = require('ar-drone');
 var drone = arDrone.createClient();
 drone.config('video:video_channel', 0);
 
-module.exports = drone;
+module.exports = {
+  flyAutonomous: function(params){
+
+  }
+};
 
 
 
