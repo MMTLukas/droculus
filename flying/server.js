@@ -4,32 +4,54 @@ var drone = require('./drone');
 var HOST = "localhost";
 var PORT = 3333;
 
+drone.flyAutonomous();
+/*
 var client = new net.Socket();
-client.connect(PORT, HOST, function(){
-  console.log("Connected to " + HOST + ":" + PORT);
-});
+/*client.connect(PORT, HOST, function(){
+ console.log("Connected to " + HOST + ":" + PORT);
+ });
 
-client.on("data", function(data){
-  console.log(getCurrentTime() + " DATA: " + data);
+client.on("data", function (data) {
+  console.log(getCurrentTime() + ": " + data);
 
   var params = parseData(data);
-  drone.flyAutonomous(params);
+  if(params != null){
+    drone.flyAutonomous(params.coordinates, params.rotation);
+  }
 });
 
-client.on("close", function(){
+client.on("close", function () {
   console.log("Connection closed");
 });
 
-client.on("error", function(error){
+client.on("error", function (error) {
   console.log("ERROR: " + error);
 });
 
-function parseData(data){
-    var params = {};
+function parseData(data) {
+  data = data.split("&") || [];
+
+  if (data.length === 6) {
+    var params = {
+      "coordinates": {
+        "x": Math.round(data[0].split("=")[1]),
+        "y": Math.round(data[1].split("=")[1]),
+        "z": Math.round(data[2].split("=")[1])
+      },
+      "rotation": {
+        "x": Math.round(data[3].split("=")[1]),
+        "y": Math.round(data[4].split("=")[1]),
+        "z": Math.round(data[5].split("=")[1])
+      }
+    }
     return params;
+  }
+  else{
+    return null;
+  }
 }
 
-function getCurrentTime(){
+function getCurrentTime() {
   var date = new Date();
   return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":" + date.getMilliseconds();
-}
+}*/
