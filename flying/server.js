@@ -39,7 +39,7 @@ client.on("error", function (error) {
 function parseData(data) {
   data = data.split("&") || [];
 
-  if (data.length === 6) {
+  if (data.length === 7) {
     var params = {
       "coordinates": {
         "x": Math.round(data[0].split("=")[1]),
@@ -50,6 +50,9 @@ function parseData(data) {
         "x": Math.round(data[3].split("=")[1]),
         "y": Math.round(data[4].split("=")[1]),
         "z": Math.round(data[5].split("=")[1])
+      },
+      "rotationAngle": {
+        "rotateY": Math.round(data[6].split("=")[1])
       }
     }
     return params;

@@ -141,9 +141,19 @@ int main(int argc, char** argv)
 
                 rotSS << "rot (rodrigues): " << rx << " " << ry << " " << rz;
                 cv::putText(image, rotSS.str(), cv::Point(10, 60), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
+				
 
-                //Send trans and rot via sockets
-                buffer << "TX=" << tx << "&TY=" << ty << "&TZ=" << tz << "&RX=" << rx << "&RY=" << ry << "&RZ=" << rz;
+				// a rotation between 0° and 180° clockwise is similar to a rotation value between 0 and 3
+				// so to get the right rotation-angle use the rotation-value and calculate the right angle
+				// for negative values due to a counterclockwise rotation do the same
+
+				float normedRotationValue =	normedRotationValue = (3.0 / 180);
+				float calculatedRotationAngle  = ry / normedRotationValue;
+
+				// std::cout << calculatedRotationAngle << std::endl;
+				
+                //Send trans, rot and rotation-angle via sockets
+                buffer << "TX=" << tx << "&TY=" << ty << "&TZ=" << tz << "&RX=" << rx << "&RY=" << ry << "&RZ=" << rz << "&calculatedRotationAngle=" << calculatedRotationAngle;
                 messageLength = write(clientSocketDescriptor, buffer.str().c_str(), strlen(buffer.str().c_str()));
                 if (messageLength < 0)
                 {
