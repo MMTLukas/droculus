@@ -2,15 +2,11 @@
  * Created by enthusiasm on 13.01.15.
  */
 
-var arDrone = require('ar-drone');
-var drone = arDrone.createClient();
-
-// Streaming front-camera
-drone.config('video:video_channel', 0);
-
-
-// Streaming bottom-camera
-drone.config('video:video_channel', 3);
+var arDrone          = require('ar-drone');
+var df               = require('dateformat');
+var autonomy         = require('ardrone-autonomy');
+var arDroneConstants = require('ar-drone/lib/constants');
+var mission          = autonomy.createMission();
 
 
 module.exports = {
@@ -19,24 +15,29 @@ module.exports = {
   }
 };
 
-// starting the drone
-drone.takeoff();
+// Land on ctrl-c
+var exiting = false;
+process.on('SIGINT', function() {
+    if (exiting) {
+        process.exit(0);
+    } else {
+        console.log('Got SIGINT. Landing, press Strg-C again to force exit.');
+        exiting = true;
+        mission.control().disable();
+        mission.client().land(function() {
+            process.exit(0);
+        });
+    }
+});
 
+// Log mission-data for debugging purposes
+mission.log("mission-Flight" + df(new Date(), "yyyy-mm-dd_hh-MM-ss") + ".txt");
 
-// flying on a fixed altitude
-drone
- .after(1000, function() {
- 	this.up(1);
- });
-
-
-// landing the drone
-drone
- .after(1000, function() {
- 	this.stop();
- 	this.land();
- });
-
+mission.takeoff()
+       .zero()
+       .go({x:0, y:0, z:0, yaw:90})
+       .hover(500)
+       .land();
 
 /* Drone Commands
 
