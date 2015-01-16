@@ -48,8 +48,25 @@ int main(int argc, char** argv)
             cout << "Opened stream from drone" << endl;
         }
 
+        Mat image;
+        cv::namedWindow("VideoStream", CV_WINDOW_NORMAL);
+
+        while(1)
+        {
+            bool bSuccess = cap.read(image);
+            if (!bSuccess)
+            {
+                cout << "Cannot read a frame from video stream" << endl;
+                break;
+            }
+            imshow("VideoStream", image);
+            waitKey(1);
+        }
+
+        cap.release();
+
         //Descriptors per socket
-        int serverSocketDescriptor, clientSocketDescriptor, port, messageLength;
+        /*int serverSocketDescriptor, clientSocketDescriptor, port, messageLength;
         struct sockaddr_in serverInfo, clientInfo;
 
         //Create TCP stream socket for listening
@@ -157,16 +174,16 @@ int main(int argc, char** argv)
             //Cancel at esc for 30ms
             if (waitKey(30) == 27)
             {
-                cout << "esc key is pressed by user" << endl;
+                cout << "esc key is pressed by user" << endl;
                 quit = true;
             }
         }
 
         //Release socket and video stream
-        //close(serverSocketDescriptor);
-        //close(clientSocketDescriptor);
+        close(serverSocketDescriptor);
+        close(clientSocketDescriptor);
         cap.release();
+        }*/
     }
-
     return 0;
 }
