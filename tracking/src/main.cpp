@@ -9,9 +9,11 @@
 using namespace cv;
 using namespace std;
 
+float calculateYRotationAngle(float rotationYAxis);
+
 int main(int argc, char** argv)
 {
-    if (argc != 3)
+   if (argc != 3)
     {
         cout << "please specify a calibration file and the marker size: e.g. \"calib.yml 8.3\"";
         cout << "command line arguments: " << endl;
@@ -96,8 +98,12 @@ int main(int argc, char** argv)
                 rotSS << "rot (rodrigues): " << rx << " " << ry << " " << rz;
                 cv::putText(image, rotSS.str(), cv::Point(10, 60), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
 
+
+				//get the rotation-value for the y-axis
+				float rotationOnYAxis = calculateYRotationAngle(ry);
+
                 //Send trans and rot via sockets
-                bufferSS << "TX=" << tx << "&TY=" << ty << "&TZ=" << tz << "&RX=" << rx << "&RY=" << ry << "&RZ=" << rz;
+                bufferSS << "TX=" << tx << "&TY=" << ty << "&TZ=" << tz << "&calculatedRotationAngleYAxis=" << rotationOnYAxis;
                 socket.send(bufferSS.str());
             }
 
@@ -117,4 +123,21 @@ int main(int argc, char** argv)
         cap.release();
     }
     return 0;
+}
+
+// a clockwise rotation between 0° and 180° is similar to a rotation value (from the marker-tracking) between 0 and 3
+// so to get the right rotation-angle use the rotation-value and calculate the right angle
+// for negative values due to a counterclockwise rotation do the same
+// but only transmit the angle, if it is not lower than -70 degrees or higher than 70 degrees
+float calculateYRotationAngle(float rotationYAxis)
+{
+	float normedRotationValue = normedRotationValue = (3.0 / 180);
+	float calculatedRotationAngleYAxis = (rotationYAxis / normedRotationValue);
+
+	if (calculatedRotationAngleYAxis < -70 || calculatedRotationAngleYAxis > 70)
+	{
+		calculatedRotationAngleYAxis = 0;
+	}
+
+	return calculatedRotationAngleYAxis;
 }
