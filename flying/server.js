@@ -46,14 +46,7 @@ function parseData(data) {
         "y": Math.round(data[1].split("=")[1]),
         "z": Math.round(data[2].split("=")[1])
       },
-      "rotation": {
-        "x": Math.round(data[3].split("=")[1]),
-        "y": Math.round(data[4].split("=")[1]),
-        "z": Math.round(data[5].split("=")[1])
-      },
-      "rotationAngle": {
-        "rotateY": Math.round(data[6].split("=")[1])
-      }
+      "rotationAngleYAxis": Math.round(data[3].split("=")[1])
     }
     return params;
   }

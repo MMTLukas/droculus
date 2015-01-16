@@ -17,22 +17,22 @@ mission.client().config('video:video_channel', 0);
 mission.client().config('detect:detect_type', 12);
 
 module.exports = {
-  flyAutonomous: function (coordinates, rotation, rotationAngle) {
+  flyAutonomous: function (coordinates, rotationAngleYAxis) {
     console.log(coordinates);
     return;
 
     /*
     var rotateInYDirection;
 
-    // rotate clockwise or stay by rotationAngle = 0
-    if(rotationAngle >= 0) {
-      rotateInYDirection = rotationAngle;
+    // rotate clockwise when rotationAngleYAxis > 0 or stay when rotationAngleYAxis = 0
+    if(rotationAngleYAxis >= 0) {
+      rotateInYDirection = rotationAngleYAxis;
     }
 
     // rotate counterclockwise 
     // has to be tested
     else {
-      rotateInYDirection = (360 - (rotationAngle * (-1)));
+      rotateInYDirection = (360 - (rotationAngleYAxis * (-1)));
     }*/
 
     mission.go({x:coordinates.x, y:coordinates.y, z:coordinates.z, yaw:rotateInYDirection})
