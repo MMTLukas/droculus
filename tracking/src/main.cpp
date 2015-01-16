@@ -61,12 +61,13 @@ int main(int argc, char** argv)
         double dHeight = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
         Size frameSize(static_cast<int>(dWidth), static_cast<int>(dHeight));
 
+        //Wait for access of a client
+        socket.acceptClient();
+
         Mat image;
         bool quit = false;
         while (!quit)
         {
-            socket.getClient();
-
             //Read frame
             bool bSuccess = cap.read(image);
             if (!bSuccess)
@@ -98,12 +99,11 @@ int main(int argc, char** argv)
                 rotSS << "rot (rodrigues): " << rx << " " << ry << " " << rz;
                 cv::putText(image, rotSS.str(), cv::Point(10, 60), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
 
-
 				//get the rotation-value for the y-axis
 				float rotationOnYAxis = calculateYRotationAngle(ry);
 
                 //Send trans and rot via sockets
-                bufferSS << "TX=" << tx << "&TY=" << ty << "&TZ=" << tz << "&calculatedRotationAngleYAxis=" << rotationOnYAxis;
+                bufferSS << "TX=" << tx << "&TY=" << ty << "&TZ=" << tz << "&RY=" << rotationOnYAxis;
                 socket.send(bufferSS.str());
             }
 

@@ -21,7 +21,7 @@ client.on("data", function (data) {
   } else{
     var params = parseData(data);
     if (params != null) {
-      drone.flyAutonomous(params.coordinates, params.rotation);
+      drone.flyAutonomous(params.coordinates, params.rotation.y, params.timestamp);
     }
   }
 });
@@ -37,14 +37,17 @@ client.on("error", function (error) {
 function parseData(data) {
   data = data.split("&") || [];
 
-  if (data.length === 7) {
+  if (data.length === 4) {
     var params = {
       "coordinates": {
         "x": Math.round(data[0].split("=")[1]),
         "y": Math.round(data[1].split("=")[1]),
         "z": Math.round(data[2].split("=")[1])
       },
-      "rotationAngleYAxis": Math.round(data[3].split("=")[1])
+      "rotation": {
+        "y": Math.round(data[3].split("=")[1])
+      },
+      "timestamp": new Date().getTime()
     }
     return params;
   }
