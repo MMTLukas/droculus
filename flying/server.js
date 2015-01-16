@@ -11,12 +11,10 @@ client.connect(PORT, HOST, function () {
 
 client.on("data", function (data) {
   console.log(getCurrentTime() + ": " + data);
-  data = JSON.stringify(data);
-
-  console.log(typeof data, data.length);
+  data = String(data).trim();
 
   if(data === "START"){
-    drone.takeoff();
+    //drone.takeoff();
   }
   else if(data === "STOP"){
     drone.land();
