@@ -21,17 +21,6 @@ module.exports = {
       .go({x:0, y:0, z:0, yaw:315})
       .land();
 
-    /*var rotateInYDirection;
-
-    // rotate clockwise when rotationAngleYAxis > 0 or stay when rotationAngleYAxis = 0
-    if(rotationAngleYAxis >= 0) {
-      rotateInYDirection = rotationAngleYAxis;
-    }
-    // rotate counterclockwise 
-    else {
-      rotateInYDirection = (360 - (rotationAngleYAxis * (-1)));
-    }*/
-
     mission.go({x:coordinates.x, y:coordinates.y, z:coordinates.z, yaw:rotateInYDirection})
     mission.run(missionCallback);
   },
