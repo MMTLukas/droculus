@@ -18,40 +18,42 @@ var lastPosition = {
   "rotation": {
     "y": 0
   },
-  "timestamp": new Date().getTime()
+  "timestamp": 0
 };
 
 var configs = {
-  updateFrequencyInMs: 1000,
+  updateFrequencyInMs: 15000,
   minMovementUpdateInCm: 10,
   minRotationUpdateInDegree: 10
 }
 
 module.exports = {
   flyAutonomous: function (coords, rotationY, timestamp) {
-    console.log(coordinates, rotationY, timestamp);
-    var tx, ty, tz, ry;
 
     //Only create max every seconds a new fly mission
     if(lastPosition.timestamp + configs.updateFrequencyInMs < timestamp){
-      //Only change coords, when there has been a movement over a defined value
-      tx = Math.abs(coords.x-lastPosition.coordinates.x) > configs.minMovementUpdateInCm ? coords.x : lastPosition.coordinates.x;
-      ty = Math.abs(coords.y-lastPosition.coordinates.y) > configs.minMovementUpdateInCm ? coords.y : lastPosition.coordinates.y;
-      tz = Math.abs(coords.z-lastPosition.coordinates.z) > configs.minMovementUpdateInCm ? coords.z : lastPosition.coordinates.z;
-      ry = Math.abs(rotationY-lastPosition.rotation.y) > 10 ? rotationY : lastPosition.rotation.y;
-    }
+      console.log(coords.y, rotationY, timestamp);
 
-    mission.go({x:tx, y:ty, z:tz, yaw:ry})
-    mission.run(missionCallback);
+      //Only change coords, when there has been a movement over a defined value
+      lastPosition.coordinates.x = Math.abs(coords.x-lastPosition.coordinates.x) > configs.minMovementUpdateInCm ? coords.x : lastPosition.coordinates.x;
+      //lastPosition.coordinates.y = Math.abs(coords.y-lastPosition.coordinates.y) > configs.minMovementUpdateInCm ? coords.y : lastPosition.coordinates.y;
+      //lastPosition.coordinates.z = Math.abs(coords.z-lastPosition.coordinates.z) > configs.minMovementUpdateInCm ? coords.z : lastPosition.coordinates.z;
+      //lastPosition.rotation.y = Math.abs(rotationY-lastPosition.rotation.y) > 10 ? rotationY : lastPosition.rotation.y;
+      lastPosition.timestamp = timestamp;
+
+      mission.go({x:lastPosition.coordinates.x, y:lastPosition.coordinates.y, z:lastPosition.coordinates.z, yaw:lastPosition.rotation.y})
+      mission.run(missionCallback);
+    }
   },
   takeoff: function () {
-    console.log("Drone take off");
     mission.takeoff().zero();
     mission.run(missionCallback);
+    console.log("Drone taking off");
   },
   land: function () {
     mission.land();
     mission.run(missionCallback);
+    console.log("Drone landing");
   }
 };
 

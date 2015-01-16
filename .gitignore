@@ -1,6 +1,4 @@
 .idea/
-
-
 build/
 CMakeFiles/
 CMakeCache.txt
@@ -8,4 +6,5 @@ cmake_install.cmake
 Makefile
 MarkerTrackerBW.layout
 libMarkerTrackerBWLib.a
-tracking
+MarkerTrackerBW.cbp
+tracking/tracking
