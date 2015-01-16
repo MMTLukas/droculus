@@ -10,10 +10,12 @@ include_directories(
 	
 # library	
 set(srcsLib 
+		src/communicator.cpp
 		src/pose.cpp
 		src/markerBW.cpp
 		src/markerDetectorBW.cpp)
-set(hdrsLib 
+set(hdrsLib
+		include/communicator.hpp 
 		include/pose.hpp
 		include/markerBW.hpp
 		include/markerDetectorBW.hpp)

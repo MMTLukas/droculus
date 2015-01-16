@@ -1,16 +1,10 @@
 #include <stdio.h>
 #include <iostream>
 
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-
 #include <opencv2/opencv.hpp>
 #include "include/markerDetectorBW.hpp"
 #include "include/markerBW.hpp"
+#include "include/communicator.hpp"
 
 using namespace cv;
 using namespace std;
@@ -48,68 +42,9 @@ int main(int argc, char** argv)
             cout << "Opened stream from drone" << endl;
         }
 
-        Mat image;
-        cv::namedWindow("VideoStream", CV_WINDOW_NORMAL);
-
-        while(1)
-        {
-            bool bSuccess = cap.read(image);
-            if (!bSuccess)
-            {
-                cout << "Cannot read a frame from video stream" << endl;
-                break;
-            }
-            imshow("VideoStream", image);
-            waitKey(1);
-        }
-
-        cap.release();
-
         //Descriptors per socket
-        /*int serverSocketDescriptor, clientSocketDescriptor, port, messageLength;
-        struct sockaddr_in serverInfo, clientInfo;
-
-        //Create TCP stream socket for listening
-        serverSocketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
-        if(serverSocketDescriptor < 0)
-        {
-            cerr << "ERROR on opening socket" << endl;
-            return -1;
-        }
-
-        //Initialize to zero and set the address-family, (current) ip address and port
-        bzero((char*) &serverInfo, sizeof(serverInfo));
-        port = 3333;
-        serverInfo.sin_family = AF_INET;
-        serverInfo.sin_addr.s_addr = INADDR_ANY;
-        serverInfo.sin_port = htons(port);
-
-        //Binds socket to address
-        int result = bind(serverSocketDescriptor, (struct sockaddr*) &serverInfo, sizeof(serverInfo));
-        if(result < 0)
-        {
-            cerr << "ERROR on binding" << endl;
-            return -1;
-        }
-
-        //Listen for incoming connections
-        //Accept causes the process to block until there is a client connecting
-        listen(serverSocketDescriptor, SOMAXCONN);
-        socklen_t clientInfoLength = sizeof(clientInfo);
-        clientSocketDescriptor = accept(serverSocketDescriptor, (struct sockaddr*) &clientInfo, &clientInfoLength);
-        if(clientSocketDescriptor < 0)
-        {
-            cerr << "ERROR on accept" << endl;
-            return -1;
-        }
-
-        string message;
-        message = "START";
-        messageLength = write(clientSocketDescriptor, message.c_str(), strlen(message.c_str()));
-        if (messageLength < 0)
-        {
-            cout << "ERROR on write" << endl;
-        }
+        Communicator socket;
+        socket.open();
 
         //float markerSize = strtof(argv[3], NULL);
         double markerSize = atof(argv[2]);
@@ -128,6 +63,8 @@ int main(int argc, char** argv)
         bool quit = false;
         while (!quit)
         {
+            socket.getClient();
+
             //Read frame
             bool bSuccess = cap.read(image);
             if (!bSuccess)
@@ -141,7 +78,7 @@ int main(int argc, char** argv)
             vector<Pose> poses = md.getPoses();
             if (poses.size() == 1 && poses.at(0).isEmpty() == false)
             {
-                stringstream transSS, rotSS, buffer;
+                stringstream transSS, rotSS, bufferSS;
                 float tx, ty, tz;
                 float rx, ry, rz;
 
@@ -160,30 +97,24 @@ int main(int argc, char** argv)
                 cv::putText(image, rotSS.str(), cv::Point(10, 60), CV_FONT_NORMAL, 0.7, cv::Scalar(0, 255, 0), 1);
 
                 //Send trans and rot via sockets
-                buffer << "TX=" << tx << "&TY=" << ty << "&TZ=" << tz << "&RX=" << rx << "&RY=" << ry << "&RZ=" << rz;
-                messageLength = write(clientSocketDescriptor, buffer.str().c_str(), strlen(buffer.str().c_str()));
-                if (messageLength < 0)
-                {
-                    cout << "ERROR on write" <<endl;
-                }
+                bufferSS << "TX=" << tx << "&TY=" << ty << "&TZ=" << tz << "&RX=" << rx << "&RY=" << ry << "&RZ=" << rz;
+                socket.send(bufferSS.str());
             }
 
             //Show Image
             imshow("VideoStream", image);
 
             //Cancel at esc for 30ms
-            if (waitKey(30) == 27)
+            if (waitKey(1) == 27)
             {
-                cout << "esc key is pressed by user" << endl;
+                cout << "esc key is pressed by user" << endl;
                 quit = true;
             }
         }
 
         //Release socket and video stream
-        close(serverSocketDescriptor);
-        close(clientSocketDescriptor);
+        socket.release();
         cap.release();
-        }*/
     }
     return 0;
 }
