@@ -1,6 +1,5 @@
 var arDrone = require('ar-drone');
 var autonomyDrone = require('ardrone-autonomy');
-var arDroneConstants = require('ar-drone/lib/constants');
 
 var mission = autonomyDrone.createMission();
 

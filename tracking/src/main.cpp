@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <iostream>
+#include <ctime>
 
 #include <opencv2/opencv.hpp>
 #include "include/markerDetectorBW.hpp"
@@ -13,7 +14,7 @@ float calculateYRotationAngle(float rotationYAxis);
 
 int main(int argc, char** argv)
 {
-   if (argc != 3)
+  if (argc != 3)
     {
         cout << "please specify a calibration file and the marker size: e.g. \"calib.yml 8.3\"";
         cout << "command line arguments: " << endl;
@@ -133,11 +134,23 @@ float calculateYRotationAngle(float rotationYAxis)
 {
 	float normedRotationValue = normedRotationValue = (3.0 / 180);
 	float calculatedRotationAngleYAxis = (rotationYAxis / normedRotationValue);
+	float rotateInYDirection;
 
 	if (calculatedRotationAngleYAxis < -70 || calculatedRotationAngleYAxis > 70)
 	{
-		calculatedRotationAngleYAxis = 0;
+		rotateInYDirection = 0;
+	}
+	else if (-70 < calculatedRotationAngleYAxis && calculatedRotationAngleYAxis < 0)
+	{
+		// rotate counterclockwise, if the absolute angle-value is higher than 180 degrees the ardrone-autonomy rotates in the opposite direction
+		// that means, a rotation in counterclockwise direction by 10 degrees has to be written as a rotation by 350 degrees
+		rotateInYDirection = (360.0 + calculatedRotationAngleYAxis);
+	}
+	else
+	{
+		// rotate clockwise when rotationAngleYAxis > 0
+		rotateInYDirection = calculatedRotationAngleYAxis;
 	}
 
-	return calculatedRotationAngleYAxis;
+	return rotateInYDirection;
 }
