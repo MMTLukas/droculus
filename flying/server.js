@@ -2,7 +2,7 @@ var net = require('net');
 var drone = require('./drone');
 
 var HOST = "localhost";
-var PORT = 8124;
+var PORT = 3333;
 
 var client = new net.Socket();
 client.connect(PORT, HOST, function () {
@@ -40,9 +40,9 @@ function parseData(data) {
   if (data.length === 4) {
     var params = {
       "coordinates": {
-        "x": Math.round(data[0].split("=")[1])/100,
-        "y": Math.round(data[1].split("=")[1])/100,
-        "z": Math.round(data[2].split("=")[1])/100
+        "x": Math.round(data[2].split("=")[1])/100,
+        "y": Math.round(data[0].split("=")[1])/100,
+        "z": Math.round(data[1].split("=")[1])/100
       },
       "rotation": {
         "y": Math.round(data[3].split("=")[1])
