@@ -1,6 +1,10 @@
 var net = require('net');
+var readline = require('readline');
 
-var shouldSwitch = true;
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
 var server = net.createServer(function (c) {
   console.log('client connected');
@@ -11,16 +15,17 @@ var server = net.createServer(function (c) {
 
   c.write("START");
 
-  setInterval(function () {
-    if (shouldSwitch) {
-      c.write("TX=" + 0 + "&TY=" + 0 + "&TZ=" + 0 + "&RY=" + 180);
-      shouldSwitch = false;
-    } else {
-      c.write("TX=" + 0 + "&TY=" + 0 + "&TZ=" + 0 + "&RY=" + 90);
-      shouldSwitch = true;
-    }
-  }, 1000);
+  var newValue = function(){
+    rl.question("X should be?", function (answer) {
+      c.write("TX=" + answer + "&TY=" + 0 + "&TZ=" + 0 + "&RY=" + 0);
+      newValue();
+    });
+  }
+  newValue();
+
 });
+
+
 
 server.listen(8124, function () { //'listening' listener
   console.log('server bound');

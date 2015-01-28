@@ -1,12 +1,27 @@
 var arDrone = require('ar-drone');
 var autonomyDrone = require('ardrone-autonomy');
-var mission = autonomyDrone.createMission();
+var arDroneConstants = require('ar-drone/lib/constants');
 
-var options = 71368705; //Masked 0,16,22,26 from arDroneConstants
-mission.client().config('general:navdata_demo', true);
-mission.client().config('general:navdata_options', options);
-mission.client().config('video:video_channel', 0);
-mission.client().config('detect:detect_type', 12);
+var client = arDrone.createClient();
+var controller = new autonomyDrone.Controller(client, {debug: false});
+
+var init = (function () {
+  var navdataOptionMask = function (c) {
+    return 1 << c;
+  }
+
+  var navdataOptions = (
+  navdataOptionMask(arDroneConstants.options.DEMO)
+  | navdataOptionMask(arDroneConstants.options.VISION_DETECT)
+  | navdataOptionMask(arDroneConstants.options.MAGNETO)
+  | navdataOptionMask(arDroneConstants.options.WIFI)
+  );
+
+  client.config('general:navdata_demo', true);
+  client.config('general:navdata_options', navdataOptions);
+  client.config('video:video_channel', 1);
+  client.config('detect:detect_type', 12);
+})();
 
 var flagExecuting = false;
 var isExecuting = function () {
@@ -18,50 +33,20 @@ var isExecuting = function () {
   }
 };
 
+var maxMovement = 1;
+var tolerance = 0.5;
 var wantedDistance = {
-  x: 1.5,
+  x: 0,
   y: 0,
   z: 0
-}
+};
 
-2
-
-var getMovement = function (value, type) {
-  switch(type){
-    case "x":
-
-      if(value > wantedDistance.x){
-        value = Math.max(wantedDistance.x-value,
-      }
-
-      if (value <= 0.5 && value >= -0.5) {
-        value = value-wantedDistance.x;
-      }
-      else if (value < -0.5) {
-        value = Math.max(value, -1);
-      }
-      else if (value > 0.5) {
-        value = Math.min(value, 1);
-      }
-
-      break;
-    case "y":
-      break;
-    case "z":
-      break;
-    default:
-      break;
+var limitMovement = function (value) {
+  if (value > maxMovement) {
+    value = maxMovement;
+  } else if (value < -maxMovement) {
+    value = -maxMovement;
   }
-  if (value <= 0.5 && value >= -0.5) {
-    value = value;
-  }
-  else if (value < -0.5) {
-    value = Math.max(value, -1);
-  }
-  else if (value > 0.5) {
-    value = Math.min(value, 1);
-  }
-
   return value;
 };
 
@@ -71,24 +56,34 @@ module.exports = {
       return;
     }
 
-    var newPosition = {
-      x: getMovement(coords.x),
-      y: getMovement(coords.y),
-      z: getMovement(coords.z)
-    };
+    if (!(coords.x > wantedDistance.x + tolerance && coords.x < wantedDistance.x - tolerance)) {
+      coords.x = wantedDistance.x - coords.x;
+      coords.x = limitMovement(coords.x);
+    }
 
-    console.log(JSON.stringify(newPosition));
-    return;
+    if (!(coords.y > wantedDistance.y + tolerance && coords.y < wantedDistance.y - tolerance)) {
+      coords.y = wantedDistance.z - coords.y;
+      coords.y = limitMovement(coords.y);
+    }
 
-    mission.go({x: newPosition.x, y: newPosition.y, z: newPosition.z, yaw: rotationY})
-    mission.zero();
-    mission.run(missionCallback);
+    if (!(coords.z > wantedDistance.z + tolerance / 2 && coords.z < wantedDistance.z - tolerance / 2)) {
+      coords.z = wantedDistance.z - coords.z;
+      coords.z = limitMovement(coords.z);
+    }
+
+    console.log(JSON.stringify(coords), rotationY);
+    controller.go({
+      x: coords.x,
+      y: coords.y,
+      z: coords.z,
+      yaw: rotationY}, callback)
   },
   takeoff: function () {
+    return;
     if (isExecuting()) {
       return;
     }
-    mission.takeoff().run(missionCallback);
+    client.takeoff(callback);
     console.log("Drone taking off");
   }
   ,
@@ -96,18 +91,17 @@ module.exports = {
     if (isExecuting()) {
       return;
     }
-    mission.land();
-    mission.run(missionCallback);
+    client.land(callback);
     console.log("Drone landing");
   }
 }
 ;
 
-function missionCallback(err, result) {
+function callback(err, result) {
   if (err) {
     console.log("Oops, something bad happened: %s", err.message);
-    mission.client().stop();
-    mission.client().land();
+    client.stop();
+    client.land();
   } else {
     console.log("Flying mission success!");
     flagExecuting = false;
@@ -122,8 +116,8 @@ process.on('SIGINT', function () {
   } else {
     console.log('Pressed STRG+C. Landing, press STRG+C again to force exit.');
     exiting = true;
-    mission.control().disable();
-    mission.client().land(function () {
+    controller.disable();
+    client.land(function () {
       process.exit(0);
     });
   }
