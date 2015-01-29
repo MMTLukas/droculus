@@ -30,11 +30,12 @@ var isExecuting = function () {
   } else {
     flagExecuting = true;
     return false;
-    }
-  };
+  }
+};
 
-var maxMovement = 1;
-var tolerance = 0.5;
+var maxMovement = 0.5;
+var maxRotation = 20;
+var tolerance = 0.1;
 var wantedDistance = {
   x: 2,
   y: 0,
@@ -52,43 +53,46 @@ var limitMovement = function (value) {
 
 module.exports = {
   flyAutonomous: function (coords, rotationY, timestamp) {
-    /*if (isExecuting()) {
+    if (isExecuting()) {
       return;
-    }*/
+    }
 
     //forward backward
-    if (!(coords.x > wantedDistance.x + tolerance && coords.x < wantedDistance.x - tolerance)) {
-      coords.x =  coords.x - wantedDistance.x;
+    if (coords.x > tolerance && coords.x < (-tolerance)) {
+      coords.x = 0;
+    }
+    else {
+      coords.x = coords.x - wantedDistance.x;
       coords.x = limitMovement(coords.x);
     }
 
     //left/right
-    if (!(coords.y > wantedDistance.y + tolerance && coords.y < wantedDistance.y - tolerance)) {
-      coords.y = coords.y - wantedDistance.z;
+    if (coords.y > tolerance && coords.y < (-tolerance)) {
+      coords.y = 0;
+    }
+    else {
+      coords.y = coords.y - wantedDistance.y;
       coords.y = limitMovement(coords.y);
     }
 
-    /* Höhe - optional
-    if (!(coords.z > wantedDistance.z + tolerance / 2 && coords.z < wantedDistance.z - tolerance / 2)) {
-      coords.z = coords.z - wantedDistance.z;
-      coords.z = limitMovement(coords.z);
-    }
-    */
-    coords.z = 0;
+    coords.z = 0.01;
+    rotationY = 0.01;
 
     console.log(JSON.stringify(coords), rotationY);
-    /*controller.zero();
+
+    controller.zero();
     controller.go({
       x: coords.x,
       y: coords.y,
       z: coords.z,
       yaw: rotationY
-    }, callback);*/
-  },
+    }, callback);
+  }
+  ,
   takeoff: function () {
-    /*if (isExecuting()) {
+    if (isExecuting()) {
       return;
-    }*/
+    }
     client.takeoff(callback);
     console.log("Drone taking off");
   }

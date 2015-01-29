@@ -10,7 +10,6 @@ client.connect(PORT, HOST, function () {
 });
 
 client.on("data", function (data) {
-  //console.log(getCurrentTime() + ": " + data);
   data = String(data).trim();
 
   if(data === "START"){

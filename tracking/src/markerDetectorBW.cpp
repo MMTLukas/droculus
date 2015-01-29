@@ -110,7 +110,7 @@ void MarkerDetectorBW::performThreshold(const cv::Mat& grayscale, cv::Mat& thres
     // SECTION START
     /// STUDENT TODO: uncomment section after thresholding
 #ifdef SHOW_DEBUG_IMAGES
-    cv::imshow("01 Threshold image", thresholdImg);
+    //cv::imshow("01 Threshold image", thresholdImg);
 #endif
     // SECTION END
 
@@ -141,7 +141,7 @@ void MarkerDetectorBW::findContours(cv::Mat& thresholdImg, ContoursVector& conto
         cv::Mat contoursImage(thresholdImg.size(), CV_8UC1);
         contoursImage = cv::Scalar(0);
         cv::drawContours(contoursImage, contours, -1, cv::Scalar(255), 2, CV_AA);
-        cv::imshow("02 Contours", contoursImage);
+        //cv::imshow("02 Contours", contoursImage);
     }
 #endif
 }
@@ -280,8 +280,8 @@ void MarkerDetectorBW::recognizeMarkers(const cv::Mat& grayscale, std::vector<Ma
                 marker.drawContour(markerImage);
                 cv::Mat markerSubImage = markerImage(cv::boundingRect(marker.points));
 
-                cv::imshow("03 Source marker", markerSubImage);
-                cv::imshow("04 MarkerBW after warp", _canonicalMarkerImage);
+                //cv::imshow("03 Source marker", markerSubImage);
+                //cv::imshow("04 MarkerBW after warp", _canonicalMarkerImage);
             }
 #endif
 
@@ -338,7 +338,7 @@ void MarkerDetectorBW::recognizeMarkers(const cv::Mat& grayscale, std::vector<Ma
             goodMarkers[i].drawContour(markerCornersMat, cv::Scalar(255));
         }
 
-        cv::imshow("05 Markers refined edges", grayscale * 0.5 + markerCornersMat);
+        //cv::imshow("05 Markers refined edges", grayscale * 0.5 + markerCornersMat);
     }
 #endif
     detectedMarkers = goodMarkers;
